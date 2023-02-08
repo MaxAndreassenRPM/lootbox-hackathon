@@ -30,6 +30,10 @@ export default function HomePage() {
 
     const [total, setTotal] = useState(0);
 
+    const [page, setPage] = useState('hub');
+
+    const [random, setRandom] = useState(0);
+
     useEffect(() => {
         setConfig(getConfig());
     }, []);
@@ -69,9 +73,70 @@ export default function HomePage() {
             <Seo/>
 
             <main>
-                <section className='bg-white'>
+                {page == 'hub' && <section className='bg-black full-screen' style={{
+                    background: "url('/hub.png') no-repeat center center fixed"
+                }}>
                     <div
-                        className='layout relative flex min-h-screen flex-col items-center justify-center py-12 text-center'>
+                        className='layout flex min-h-screen flex-col items-center justify-center py-12 text-center'>
+                        {<Button className='mt-8 hub-continue-button' variant='light'
+                                 onClick={() => setPage('shop')}>
+                            Shop
+                        </Button>}
+                    </div>
+                </section>}
+
+                {page == 'shop' && <section className='bg-black full-screen' style={{background: "url('/shop.png') no-repeat center center fixed"}}>
+                    <div
+                        className='layout flex min-h-screen flex-col items-center justify-center py-12 text-center'>
+                        {<Button className='mt-8 buy-lootbox-button' variant='light'
+                                 onClick={() => setPage('open-lootbox')}>
+                        </Button>}
+                    </div>
+                </section>}
+
+                {page == 'open-lootbox' && <section className='bg-black full-screen' style={{background: "url('/open.png') no-repeat center center fixed"}}>
+                    <div
+                        className='layout flex min-h-screen flex-col items-center justify-center py-12 text-center'>
+                        {<Button className='mt-8 open-lootbox-button' variant='light'
+                                 onClick={() => {
+                                     chooseItem();
+                                     setPage('opening-lootbox');
+                                     setRandom(Math.random());
+                                     setTimeout(() => {
+                                         setPage('opened-lootbox');
+                                     }, 3500);
+                                 }}>
+                        </Button>}
+                    </div>
+                </section>}
+
+                {page == 'opening-lootbox' && <section className='bg-black full-screen' style={{background: `url('/opening.png') no-repeat center center fixed`}}>
+                    <div
+                        className='layout flex min-h-screen flex-col items-center justify-center py-12 text-center'>
+                        <Image src={`/animation.gif?a=${random}`} alt="me" width="1024" height="1024"/>
+                    </div>
+                </section>}
+
+                {page == 'opened-lootbox' && <section className='bg-black full-screen' style={{background: `url('${chosenItem?.imageUrl}') no-repeat center center fixed`}}>
+                    <div
+                        className='layout flex min-h-screen flex-col items-center justify-center py-12 text-center'>
+                        {<Button className='mt-8 open-lootbox-button' variant='light'
+                                 onClick={() => setPage('hub-final')}>
+                        </Button>}
+                    </div>
+                </section>}
+
+                {page == 'hub-final' && <section className='bg-black full-screen' style={{background: `url('${chosenItem?.hubUrl}') no-repeat center center fixed`}}>
+                    <div className='layout flex min-h-screen flex-col items-center justify-center py-12 text-center'>
+                        {<Button className='mt-8 hub-continue-button' variant='light'
+                                 onClick={() => setPage('shop')}> Shop
+                        </Button>}
+                    </div>
+                </section>}
+
+                {/*page == 'lootbox-select' && <section className='bg-black full-screen' style={{background: "url('/shop.png') no-repeat center center fixed", backgroundSize: "100% 100%"}}>
+                    <div
+                        className='layout flex min-h-screen flex-col items-center justify-center py-12 text-center'>
                         <h1 className='mt-4 mb-8'>
                             Legendary Lootbox
                         </h1>
@@ -79,7 +144,7 @@ export default function HomePage() {
                         {!chosenItem && <div className='mb-8'>What will you unlock?</div>}
                         {chosenItem && <div className='mb-8'>You've unlocked: {chosenItem.name} </div>}
 
-                        {chosenItem && <Image src={chosenItem?.imageUrl as string} alt="me" width="64" height="64" />}
+                        {chosenItem && <Image src={chosenItem?.imageUrl as string} alt="me" width="64" height="64"/>}
 
                         {<Button className='mt-8' variant='light' onClick={() => chooseItem()}>
                             Open Lootbox
@@ -87,7 +152,10 @@ export default function HomePage() {
 
                         <div className='mt-8' style={{fontSize: '14px'}}>Unlock-able Items</div>
                         {config.outfits?.map(outfit =>
-                            <div key={outfit.name} style={{fontSize: '12px', marginTop: '4px'}}>{outfit.name}: {getPercentageChance(outfit.weight)}% chance</div>
+                            <div key={outfit.name} style={{
+                                fontSize: '12px',
+                                marginTop: '4px'
+                            }}>{outfit.name}: {getPercentageChance(outfit.weight)}% chance</div>
                         )}
 
                         <footer className='absolute bottom-2 text-gray-700'>
@@ -97,7 +165,7 @@ export default function HomePage() {
                             </UnderlineLink>
                         </footer>
                     </div>
-                </section>
+                </section>*/}
             </main>
         </Layout>
     );

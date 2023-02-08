@@ -45,6 +45,49 @@
     cursor: url('/images/new-tab.png') 10 10, pointer;
   }
 
+  .hub-continue-button {
+    position: absolute;
+    top: 434px;
+    left:1.6%;
+    background-color: #0ff !important;
+    border: none;
+    color: #1d221c !important;
+  }
+
+  .full-screen {
+    background-size: 100% 100% !important;
+  }
+
+  .buy-lootbox-button {
+    width: 23.3%;
+    /* right: 30%; */
+    left: 16.5%;
+    height: 72.4%;
+    top: 16%;
+    opacity: 0;
+    position: absolute;
+    background-color: #0ff !important;
+    border: none;
+    color: #1d221c !important;
+  }
+
+  .open-lootbox-button {
+    width: 29%;
+    /* right: 30%; */
+    left: 41%;
+    height: 31%;
+    top: 37%;
+    opacity: 0;
+    position: absolute;
+    background-color: #0ff !important;
+    border: none;
+    color: #1d221c !important;
+  }
+
+  .buy-lootbox-button:hover {
+    opacity: 0.2;
+  }
+
   /* #region  /**=========== Typography =========== */
   .h0 {
     @apply font-primary text-3xl font-bold md:text-5xl;
